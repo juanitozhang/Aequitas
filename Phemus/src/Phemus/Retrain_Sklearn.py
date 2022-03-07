@@ -140,6 +140,22 @@ def retrain_search(model, dataset: Dataset, retrain_csv_dir, threshold, num_tria
     return current_model, fairness
 
 def retrain_sklearn(dataset: Dataset, input_pkl_dir, retrain_csv_dir, improved_pkl_dir, plot_dir, threshold, num_trials, samples):
+    """
+    Takes a trained model and a list of discrimitory inputs, retrain_sklearn retrain the model with these new 
+    inputs to improve its fairness. The program terminates when the fairness decreases or we exhausted our inputs.
+    The program saves the new model and a plot of how fairness increases to the local directory.
+
+    Keyword arguments:
+    dataset -- A dataset object that contains the meta information about the dataset used
+    input_pkl_dir -- The directory where the input model in .pkl formate is located
+    retrain_csv_dir -- The directory where the discrimitory inputs in .csv formate is located
+    improved_pkl_dir -- The directory where the updated model in .pkl will be stored in
+    plot_dir -- The directory where the plot of fairness increase will be stored in
+    threshold -- A quantitative threshold used to determine whether a input is discrimitory or not. 
+                 For a binary classification, this threshold should be zero.
+    num_trials -- The number of trials that will be conducted when doing fairness estimation
+    samples -- The number of samples that will be taken when doing fairness estimation
+    """
     print("\nRetrain Started...\n")
     original_model = joblib.load(input_pkl_dir)
     improved_model, fairness= retrain_search(original_model, dataset, retrain_csv_dir, threshold, num_trials, samples)
