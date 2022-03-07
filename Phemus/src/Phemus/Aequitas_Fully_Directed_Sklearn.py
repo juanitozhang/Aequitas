@@ -238,7 +238,7 @@ def aequitas_fully_directed_sklearn(dataset: Dataset, perturbation_unit, thresho
                  For a binary classification, this threshold should be zero.
     global_iteration_limit -- The number of time where global discovery will be ran
     local_iteration_limit -- The number of time where local perturbation will be ran for each 
-                             input discovered in global discovery.
+                             input discovered in global discovery
     input_pkl_dir -- The local directory for the trained model in .pkl format
     retrain_csv_dir -- The directory where the output .csv will be saved
     """
