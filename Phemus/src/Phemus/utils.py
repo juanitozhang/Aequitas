@@ -622,11 +622,29 @@ def plot_cov_thresh_vs_acc_pos_ratio(x_all, y_all, x_control_all, num_folds, los
     plt.show()
 
 def get_line_coordinates(w, x1, x2):
+    
     y1 = (-w[0] - (w[1] * x1)) / w[2]
     y2 = (-w[0] - (w[1] * x2)) / w[2]    
     return y1,y2
 
 def get_input_bounds(input_file):
+    """Compute the input bounds of a dataset
+
+    Takes a dataset in the form of a .csv file, and compute the input bounds as a two dimenstional list.
+    
+    Args:
+        input file -- The directory of the input datset stored in a .csv file.
+
+    Returns:
+        A two dimentional list. Each element in the two dimentional is a length 2 
+        tuple that represents the input bound for one parameter. The first item is the lower bound 
+        of the input and the second item will be the upper bound of the input.
+        For example, here is a sample output:
+            [[1, 2], [0, 3], [0, 4]]
+
+    Raises:
+        This function does not raise any exceptions. 
+    """
     input_bounds = []
     df=pd.read_csv(input_file)
     for col in df:
@@ -636,9 +654,37 @@ def get_input_bounds(input_file):
     return input_bounds
 
 def get_column_names(input_file):
+    """Find the column names of a dataset
+
+    Takes a dataset in the form of a .csv file, and find the column names as list.
+    
+    Args:
+        input file -- The directory of the input datset stored in a .csv file.
+
+    Returns:
+        A list of all the column names. 
+
+    Raises:
+        This function does not raise any exceptions. 
+    """
     df=pd.read_csv(input_file)
     return list(df.columns)
 
 def get_idx_of_col_to_be_predicted(input_file, col_to_be_predicted):
+    """Find the id of the column to be predicted.
+
+    Takes a dataset in the form of a .csv file, and find the id of 
+    the parameter to be predicted from the name of the sensitive parameter.
+    
+    Args:
+        input file -- The directory of the input datset stored in a .csv file.
+        col_to_be_predicted -- The column name where the id will be found
+
+    Returns:
+        The corresponding id for the input column name.
+        
+    Raises:
+        This function does not raise any exceptions. 
+    """
     df=pd.read_csv(input_file)
     return list(df.columns).index(col_to_be_predicted)
