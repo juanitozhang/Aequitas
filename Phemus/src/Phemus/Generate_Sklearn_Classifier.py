@@ -13,6 +13,14 @@ from sklearn.neural_network import MLPClassifier
 from .Dataset import Dataset
 
 def generate_sklearn_classifier(dataset: Dataset, output_pkl_dir):
+    """
+    Takes a input dataset characterised by a dataset object and train a machine learning
+    model from the dataset in .pkl format and then store the model locally.
+    
+    Keyword arguments:
+    dataset -- A dataset object that contains the meta information about the dataset used
+    output_pkl_dir -- The directory where the output model in .pkl format will be saved
+    """
     input_csv_dir = dataset.dataset_dir
     col_to_be_predicted = dataset.col_to_be_predicted
     model_type = dataset.model_type
