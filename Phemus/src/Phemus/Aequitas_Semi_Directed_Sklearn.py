@@ -190,6 +190,22 @@ class Semi_Direct:
 
 def aequitas_semi_directed_sklearn(dataset: Dataset, perturbation_unit, threshold, global_iteration_limit,\
          local_iteration_limit, input_pkl_dir, retrain_csv_dir):
+    """
+    Identify a list of discrimitary input using the Aequitas algorithm 
+    and save them to a local .csv file for a machine learning model. 
+    The perturbation method used is semi directed.
+    
+    Keyword arguments:
+    dataset -- A dataset object that contains the meta information about the dataset used
+    perturbation_unit -- A unit measurement for each perturbation step
+    threshold -- A quantitative threshold used to determine whether a input is discrimitory or not. 
+                 For a binary classification, this threshold should be zero.
+    global_iteration_limit -- The number of time where global discovery will be ran
+    local_iteration_limit -- The number of time where local perturbation will be ran for each 
+                             input discovered in global discovery
+    input_pkl_dir -- The local directory for the trained model in .pkl format
+    retrain_csv_dir -- The directory where the output .csv will be saved
+    """
     
     print("Aequitas Semi Directed Started...\n")
     initial_input = [random.randint(low,high) for [low, high] in dataset.input_bounds]
@@ -206,12 +222,6 @@ def aequitas_semi_directed_sklearn(dataset: Dataset, perturbation_unit, threshol
                                                             + len(semi_direct.local_disc_inputs_list)) / float(len(semi_direct.tot_inputs))*100))
     print()
     print("Starting Local Search")
-
-    # for inp in semi_direct.global_disc_inputs_list:
-    #     basinhopping(semi_direct.evaluate_local, inp, stepsize=1.0, take_step=semi_direct.local_perturbation, minimizer_kwargs=minimizer,
-    #                 niter=semi_direct.local_iteration_limit)
-    #     print("Percentage discriminatory inputs - " + str(float(len(semi_direct.global_disc_inputs_list) + len(semi_direct.local_disc_inputs_list))
-                                                        # / float(len(semi_direct.tot_inputs))*100))
 
     semi_direct = mp_basinhopping(semi_direct, minimizer, local_iteration_limit)
                                          
