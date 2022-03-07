@@ -61,17 +61,25 @@ def get_estimate_array(dataset: Dataset, model, threshold, num_trials, samples):
     return estimate_array
 
 def get_fairness_estimation(dataset: Dataset, input_pkl_name, threshold, num_trials, samples):
-    """
+    """Estimated the fairness of a model
+
     Takes a trained model and estimate its fairness. Return the final fairness estimation on a
     normalized 0-1 scale.
 
-    Keyword arguments:
-    dataset -- A dataset object that contains the meta information about the dataset used
-    input_pkl_dir -- The directory where the input model in .pkl formate is located
-    threshold -- A quantitative threshold used to determine whether a input is discrimitory or not. 
-                 For a binary classification, this threshold should be zero.
-    num_trials -- The number of trials that will be conducted when doing fairness estimation
-    samples -- The number of samples that will be taken when doing fairness estimation
+    Args:
+        dataset -- A dataset object that contains the meta information about the dataset used.
+        input_pkl_dir -- The directory where the input model in .pkl formate is located.
+        threshold -- A quantitative threshold used to determine whether a input is discrimitory or not. 
+            For a binary classification, this threshold should be zero.
+        num_trials -- The number of trials that will be conducted when doing fairness estimation.
+        samples -- The number of samples that will be taken when doing fairness estimation.
+
+    Returns:
+        A string that represents a number between 0-1 in decimal formate. This number is the estimated fairness
+        of the input model.
+
+    Raises:
+        This function does not raise any exceptions.
     """
     model = joblib.load(input_pkl_name)
     arr = get_estimate_array(dataset, model, threshold, num_trials, samples)

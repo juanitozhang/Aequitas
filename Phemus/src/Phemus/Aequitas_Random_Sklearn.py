@@ -146,21 +146,28 @@ class Random_Select:
 
 def aequitas_random_sklearn(dataset: Dataset, perturbation_unit, threshold, global_iteration_limit,\
          local_iteration_limit, input_pkl_dir, retrain_csv_dir):
-    """
+    """Identify discrimitary input on a model using random Aequitas.
+
     Identify a list of discrimitary input using the Aequitas algorithm 
     and save them to a local .csv file for a machine learning model. 
     The perturbation method used is random.
     
-    Keyword arguments:
-    dataset -- A dataset object that contains the meta information about the dataset used
-    perturbation_unit -- A unit measurement for each perturbation step
-    threshold -- A quantitative threshold used to determine whether a input is discrimitory or not. 
-                 For a binary classification, this threshold should be zero.
-    global_iteration_limit -- The number of time where global discovery will be ran
-    local_iteration_limit -- The number of time where local perturbation will be ran for each 
-                             input discovered in global discovery
-    input_pkl_dir -- The local directory for the trained model in .pkl format
-    retrain_csv_dir -- The directory where the output .csv will be saved
+    Args:
+        dataset -- A dataset object that contains the meta information about the dataset used.
+        perturbation_unit -- A unit measurement for each perturbation step.
+        threshold -- A quantitative threshold used to determine whether a input is discrimitory or not. 
+            For a binary classification, this threshold should be zero.
+        global_iteration_limit -- The number of time where global discovery will be ran.
+        local_iteration_limit -- The number of time where local perturbation will be ran for each 
+            input discovered in global discovery.
+        input_pkl_dir -- The local directory for the trained model in .pkl format.
+        retrain_csv_dir -- The directory where the output .csv will be saved.
+    
+    Returns:
+        This function does not have a return value.
+
+    Raises:
+        This function does not raise any exceptions.
     """
     
     print("Aequitas Random Started...\n")
