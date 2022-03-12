@@ -16,7 +16,7 @@ There are 3 test generation strategies in our suite, namely Aequitas Random, Aeq
 ## Aequitas Web
 [Aequitas Web](https://aequitasweb.herokuapp.com/) is a web interface to Aequitas.
 
-## Archives
+## Archive
 Please visit our [archive website](https://yemi33.github.io/Aequitas-Final-Archive-Website/) to learn more about our project.
 
 # Credit
