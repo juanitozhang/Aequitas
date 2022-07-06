@@ -19,7 +19,6 @@ from scipy.optimize import basinhopping
 '''
 This is a Aequitas Fully Directed Mode
 '''
-
 class Fully_Direct:
     def __init__(self, dataset: Dataset, perturbation_unit, threshold, global_iteration_limit, \
                         local_iteration_limit, input_pkl_dir, retrain_csv_dir):
@@ -227,6 +226,29 @@ class Fully_Direct:
 
 def aequitas_fully_directed_sklearn(dataset: Dataset, perturbation_unit, threshold, global_iteration_limit,\
          local_iteration_limit, input_pkl_dir, retrain_csv_dir):
+    """Identify discrimitary input on a model using fully directed Aequitas.
+
+    Identify a list of discrimitary input using the Aequitas algorithm 
+    and save them to a local .csv file for a machine learning model. 
+    The perturbation method used is fully directed.
+    
+    Args:
+        dataset -- A dataset object that contains the meta information about the dataset used.
+        perturbation_unit -- A unit measurement for each perturbation step.
+        threshold -- A quantitative threshold used to determine whether a input is discrimitory or not. 
+            For a binary classification, this threshold should be zero.
+        global_iteration_limit -- The number of time where global discovery will be ran.
+        local_iteration_limit -- The number of time where local perturbation will be ran for each 
+            input discovered in global discovery.
+        input_pkl_dir -- The local directory for the trained model in .pkl format.
+        retrain_csv_dir -- The directory where the output .csv will be saved.
+    
+    Returns:
+        This function does not have a return value.
+
+    Raises:
+        This function does not raise any exceptions.
+    """
 
     print("Aequitas Fully Directed Started...\n")
     initial_input = [random.randint(low,high) for [low, high] in dataset.input_bounds]
@@ -243,12 +265,6 @@ def aequitas_fully_directed_sklearn(dataset: Dataset, perturbation_unit, thresho
                                                     + len(fully_direct.local_disc_inputs_list)) / float(len(fully_direct.tot_inputs))*100))
     print()
     print("Starting Local Search")
-
-    # for inp in fully_direct.global_disc_inputs_list:
-    #     basinhopping(fully_direct.evaluate_local, initial_input, stepsize=1.0, take_step=fully_direct.local_perturbation, minimizer_kwargs=minimizer,
-    #             niter=local_iteration_limit)
-    #     print("Percentage discriminatory inputs - " + str(float(len(fully_direct.global_disc_inputs_list) + len(fully_direct.local_disc_inputs_list))
-    #                                                   / float(len(fully_direct.tot_inputs))*100))
     
     fully_direct = mp_basinhopping(fully_direct, minimizer, local_iteration_limit)
     # save the discriminatory inputs to file
